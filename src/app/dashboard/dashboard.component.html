@@ -1,0 +1,54 @@
+<div class="col-5 ml-auto">
+    <div class="float-right m-2">
+        <button type="button" class="btn btn-danger" (click)="navForm()">
+            Buy Now
+        </button>
+    </div>
+</div>
+<div class="container">
+    <div class="row pb-4">
+        <div class="col-3 mt-4" *ngFor="let shopItem of shopItem ; let i = index">
+            <div class="card text-center" style="width: 14rem;">
+                <img [src]="shopItem.img" class="card-img-top w-100" style="height: 222px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{shopItem.name}}</h5>
+                    <p class="card-text">{{shopItem.price | currency:'INR'}}</p>
+                    <button type="button" class="btn" (click)="qty('add',shopItem)"><i class="fa fa-plus-square"
+                            aria-hidden="true"></i></button>
+                    <span class="card-text">{{shopItem.qty}}</span>
+                    <button type="button" class="btn" (click)="qty('remove',shopItem)"><i class="fa fa-minus-square"
+                            aria-hidden="true"></i></button>
+                    <a class="btn btn-primary" (click)="addToBag(shopItem)">Add to Bag</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h1>Shopping Bag</h1>
+        <table class="table table-bordered" *ngIf="shopItem.length !==0; else elsepart">
+            <thead>
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price Details</th>
+                    <th scope="col">Order Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let shopBag of shopBag">
+                    <td>{{shopBag.name}}</td>
+                    <td>{{shopBag.qty}}</td>
+                    <td>{{shopBag.price | currency:'INR'}}</td>
+                    <td>{{shopBag.totalPrice | currency:'INR'}}</td>
+                </tr>
+                <tr>
+                    <th colspan="3" class="text-right">Total</th>
+                    <td colspan="3">{{total | currency:'INR'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #elsepart>
+            <h4 class="mt-5 text-center"> Please add Product To Shopping bag</h4>
+        </ng-template>
+    </div>
+</div>
